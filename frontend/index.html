@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mini Proyecto - Hola Bedrock</title>
+    <style>
+        body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    #respuesta {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background: #f9f9f9;
+    }
+    </style>
+</head>
+<body>
+    <h1>Mini Proyecto: Hola Bedrock</h1>
+  
+  <label for="entrada">Escribe tu texto:</label><br>
+  <input type="text" id="entrada" placeholder="Ej: Hola mundo" style="width:300px;"><br><br>
+  
+  <button id="enviar">Enviar</button>
+  
+  <div id="respuesta">Aquí aparecerá la respuesta...</div>
+
+  <script>
+    document.getElementById("enviar").addEventListener("click", async () => {
+      const texto = document.getElementById("entrada").value;
+
+      // Aquí pondremos el endpoint de API Gateway cuando esté listo
+      const url = "http://localhost:3000/dummy"; // Temporal
+
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ texto })
+        });
+
+        const data = await response.json();
+        document.getElementById("respuesta").textContent = data.mensaje || JSON.stringify(data);
+      } catch (error) {
+        document.getElementById("respuesta").textContent = "Error: " + error;
+      }
+    });
+  </script>
+</body>
+</html>
